@@ -12,7 +12,20 @@ function showDataInCard(data){
     cardHolder.textContent = '';
 
 
-    console.log(data)
+    console.log(data);
+    console.log(data.length);
+    const showAllButton = document.getElementById('showAll');
+
+    if(parseInt(data.length) > 12)
+    {
+        data = data.slice(0,12);
+        showAllButton.classList.remove('hidden');
+        
+    }else{
+        showAllButton.classList.add('hidden');
+    }
+
+
     for(card of data)
     {
         const phonCard = document.createElement('div');
@@ -32,7 +45,9 @@ function showDataInCard(data){
         `
         phonCard.classList = 'card bg-base-100 shadow-xl flex flex-col items-center'
         cardHolder.appendChild(phonCard);
-    }
+    };
+
+    ToggleSpinner(false);
 }
 const searchButton = document.getElementById('btnSearch');
 const searchBox = document.getElementById('searchBox');
@@ -41,6 +56,7 @@ function handleClickandEnter(event){
 
     if(event.key === 'Enter' ||  event.type === 'click')
     {
+        ToggleSpinner(true);
         console.log("hghfd")
         const searchInput = searchBox.value;
         searchBox.value = '';
@@ -53,3 +69,13 @@ function handleClickandEnter(event){
 searchButton.addEventListener('click',handleClickandEnter);
 searchBox.addEventListener('keydown',handleClickandEnter);
 // loadPhones()
+
+function ToggleSpinner(isLoading){
+
+    if(isLoading)
+    {
+        document.getElementById('spinner').classList.remove('hidden');
+    }else{
+        document.getElementById('spinner').classList.add('hidden');
+    }
+}
