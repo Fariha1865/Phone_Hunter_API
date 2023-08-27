@@ -1,5 +1,5 @@
-const loadPhones = async() =>{
-    const url = 'https://openapi.programming-hero.com/api/phones?search=iphone';
+const loadPhones = async(phoneName) =>{
+    const url = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
     const res = await fetch(url);
     const data = await res.json();
 
@@ -9,6 +9,9 @@ const loadPhones = async() =>{
 function showDataInCard(data){
 
     const cardHolder = document.getElementById('card_container');
+    cardHolder.textContent = '';
+
+
     console.log(data)
     for(card of data)
     {
@@ -31,5 +34,22 @@ function showDataInCard(data){
         cardHolder.appendChild(phonCard);
     }
 }
+const searchButton = document.getElementById('btnSearch');
+const searchBox = document.getElementById('searchBox');
 
-loadPhones()
+function handleClickandEnter(event){
+
+    if(event.key === 'Enter' ||  event.type === 'click')
+    {
+        console.log("hghfd")
+        const searchInput = searchBox.value;
+        searchBox.value = '';
+        loadPhones(searchInput); 
+    }
+
+
+}
+
+searchButton.addEventListener('click',handleClickandEnter);
+searchBox.addEventListener('keydown',handleClickandEnter);
+// loadPhones()
