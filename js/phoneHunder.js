@@ -125,4 +125,4 @@ const showDetails = async(id) =>{
 
 }
 
-loadPhones("13")
+// loadPhones("13")
