@@ -1,3 +1,11 @@
+let isShowAll = false;
+const showAllButton = document.getElementById('showAll');
+const searchButton = document.getElementById('btnSearch');
+const searchBox = document.getElementById('searchBox');
+let searchInput = '';
+
+
+
 const loadPhones = async(phoneName) =>{
     const url = `https://openapi.programming-hero.com/api/phones?search=${phoneName}`;
     const res = await fetch(url);
@@ -14,15 +22,19 @@ function showDataInCard(data){
 
     console.log(data);
     console.log(data.length);
-    const showAllButton = document.getElementById('showAll');
 
-    if(parseInt(data.length) > 12)
+    if(parseInt(data.length) > 12 && isShowAll===false)
     {
+        
         data = data.slice(0,12);
         showAllButton.classList.remove('hidden');
         
+        
     }else{
+        console.log("reload")
         showAllButton.classList.add('hidden');
+        isShowAll=false;
+        
     }
 
 
@@ -49,8 +61,6 @@ function showDataInCard(data){
 
     ToggleSpinner(false);
 }
-const searchButton = document.getElementById('btnSearch');
-const searchBox = document.getElementById('searchBox');
 
 function handleClickandEnter(event){
 
@@ -58,7 +68,7 @@ function handleClickandEnter(event){
     {
         ToggleSpinner(true);
         console.log("hghfd")
-        const searchInput = searchBox.value;
+        searchInput = searchBox.value;
         searchBox.value = '';
         loadPhones(searchInput); 
     }
@@ -79,3 +89,10 @@ function ToggleSpinner(isLoading){
         document.getElementById('spinner').classList.add('hidden');
     }
 }
+
+showAllButton.addEventListener('click',function(){
+
+    isShowAll=true;
+    loadPhones(searchInput);
+     
+})
