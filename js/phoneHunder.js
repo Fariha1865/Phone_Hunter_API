@@ -12,6 +12,7 @@ const loadPhones = async(phoneName) =>{
     const data = await res.json();
 
     showDataInCard(data.data);
+
 }
 
 function showDataInCard(data){
